@@ -11,6 +11,7 @@ from phones_app.views import (
     add_to_cart_view,
     remove_from_cart_view,
     increase_product_count_view,
+    decrease_product_count_view,
 )
 
 urlpatterns = [
@@ -20,6 +21,7 @@ urlpatterns = [
     re_path(r'^category/(?P<category_slug>[-\w]+)/$', detailed_category_view, name='detailed_category_view'),
     re_path(r'^add_to_cart/$', add_to_cart_view, name='add_to_cart_view'),
     re_path(r'^add_qty_to_product/$', increase_product_count_view, name='increase_product_count_view'),
+    re_path(r'^remove_qty_from_product/$', decrease_product_count_view, name='decrease_product_count_view'),
     re_path(r'^remove_from_cart/$', remove_from_cart_view, name='remove_from_cart_view'),
     re_path(r'^cart/$', cart_view, name='cart_view'),
     path('grappelli/', include('grappelli.urls')),
