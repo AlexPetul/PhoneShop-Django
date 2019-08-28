@@ -56,6 +56,7 @@ class Cart(models.Model):
             product=product, total_price=product.price)
         if new_item not in cart.products.all():
             cart.products.add(new_item)
+            cart.total_price += new_item.product.price
             cart.save()
 
     def remove_from_cart(self, product):
@@ -64,6 +65,7 @@ class Cart(models.Model):
             if cart_item.product == product:
                 cart.products.remove(cart_item)
                 cart_item.delete()
+                cart.total_price -= cart_item.product.price
                 cart.save()
 
 

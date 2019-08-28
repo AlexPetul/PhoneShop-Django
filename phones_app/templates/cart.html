@@ -30,7 +30,8 @@
 		</div>
 		{% endfor %}
 		<div class="col-lg-4">
-			<p>Total price: {{ cart.total_price }}</p>
+			<span>Total price: </span>
+			<span id="cart-total-price">{{ cart.total_price }}</span>
 		</div>
 	</div>
 </div>
@@ -73,6 +74,7 @@
 				success: function(data){
 					$('.cart-item-' + item_id + ' > .product-count').html(data.count);
 					$('.cart-item-' + item_id + ' > .product-total-price').html(data.product_total_price);
+					$('#cart-total-price').html(data.total_cart_price);
 				}
 			});
 		});

@@ -83,15 +83,21 @@ def add_to_cart_view(request):
     cart.add_to_cart(product)
     return JsonResponse({'total': cart.products.count()})
 
+
 def increase_product_count_view(request):
     cart = get_users_cart(request)
     cart_item_id = request.GET.get('item_id')
     cart_item = cart.products.get(id=cart_item_id)
     cart_item.count += 1
     cart_item.total_price += cart_item.product.price
+    cart.total_price += cart_item.product.price
     cart_item.save()
-    print(cart_item.total_price)
-    return JsonResponse({'count': cart_item.count, 'product_total_price': cart_item.total_price})
+    cart.save()
+    return JsonResponse({
+        'count': cart_item.count,
+        'product_total_price': cart_item.total_price,
+        'total_cart_price': cart.total_price
+    })
 
 
 def remove_from_cart_view(request):
