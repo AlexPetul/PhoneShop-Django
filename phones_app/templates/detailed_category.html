@@ -17,7 +17,9 @@
 					</h4>
 					<h5>${{ product.price }}</h5>
 					<p class="card-text">{{ product.description }}</p>
-					<button class="btn btn-success"><i class="fa fa-shopping-cart icons" aria-hidden="true"></i> Add</button>
+					<a href="{% url 'add_to_cart_view' %}" class='add-to-cart' data-slug='{{ product.slug }}'>
+						<button class="btn btn-success"><i class="fa fa-shopping-cart icons" aria-hidden="true"></i> Add</button>
+					</a>
 				</div>
 			</div>
 		</div>

@@ -14,7 +14,11 @@
 		<div class="col-lg-8 main-info">
 			<h1 align="center">{{ product.title }}</h1>
 			<p>{{ product.full_description }}</p>
-			<button class="btn btn-success">Add to cart</button>
+			<a href="{% url 'add_to_cart_view' %}" class='add-to-cart' data-slug='{{ product.slug }}'>
+				<button class="btn btn-success">
+					<i class="fa fa-shopping-cart icons" aria-hidden="true"></i> Add to cart
+				</button>
+			</a>
 		</div>
 	</div>
 </div>
