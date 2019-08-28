@@ -73,7 +73,6 @@
 				url: "{% url 'increase_product_count_view' %}",
 				data: data,
 				success: function(data){
-					console.log(data.count);
 					$('.cart-item-' + item_id +' > .product-count').html(data.count);
 				}
 			});
