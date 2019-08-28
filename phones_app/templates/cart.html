@@ -57,6 +57,7 @@
 				success: function(data){
 					$('#cart-count').html(data.total);
 					$('.cart-item-'+item_id).css('display', 'none');
+					$('#cart-total-price').html(data.total_cart_price);
 				}
 			});
 		});

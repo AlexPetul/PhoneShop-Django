@@ -105,4 +105,7 @@ def remove_from_cart_view(request):
     product_slug = request.GET.get('product_slug')
     product = Product.objects.get(slug=product_slug)
     cart.remove_from_cart(product)
-    return JsonResponse({'total': cart.products.count()})
+    return JsonResponse({
+        'total': cart.products.count(),
+        'total_cart_price': cart.total_price
+    })

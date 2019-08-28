@@ -65,7 +65,7 @@ class Cart(models.Model):
             if cart_item.product == product:
                 cart.products.remove(cart_item)
                 cart_item.delete()
-                cart.total_price -= cart_item.product.price
+                cart.total_price -= cart_item.total_price
                 cart.save()
 
 
