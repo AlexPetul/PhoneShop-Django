@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}{{ product.title }}{% endblock title %}
+
+{% block content %}
+
+<div class="container wrapper">
+	<div class="row">
+		<div class="col-lg-4">
+			<img class="img-fluid" src="{{ product.image.url }}">
+			<h2 align="center">{{ product.price }} $</h2>
+		</div>
+		<div class="col-lg-8 main-info">
+			<h1 align="center">{{ product.title }}</h1>
+			<p>{{ product.full_description }}</p>
+			<button class="btn btn-success">Add to cart</button>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

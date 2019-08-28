@@ -1,0 +1,33 @@
+body {
+	padding-top: 56px;
+}
+
+.card-text{
+	font-size: 13px;
+}
+
+.main-info{
+	padding-top: 50px;
+}
+
+.wrapper{
+	padding: 50px 0 50px 0;
+}
+
+.cart-header{
+	font-size: 20px;
+	font-weight: bold;
+	border-bottom: 2px solid black;
+}
+.cart-body{
+	margin-top: 40px;
+	padding: 20px 0 20px 0;
+	box-shadow: 1px 0px 20px 0px rgba(0,0,0,0.75);
+	-webkit-box-shadow: 1px 0px 20px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 1px 0px 20px 0px rgba(0,0,0,0.75);
+}
+
+.cart-body div:last-child > a{
+	text-decoration: none;
+	color: black;
+}
