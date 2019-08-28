@@ -90,7 +90,8 @@ def increase_product_count_view(request):
     cart_item.count += 1
     cart_item.total_price *= 2
     cart_item.save()
-    return JsonResponse({'total': cart.products.count()})
+    print(cart_item.count)
+    return JsonResponse({'count': cart_item.count})
 
 
 def remove_from_cart_view(request):
