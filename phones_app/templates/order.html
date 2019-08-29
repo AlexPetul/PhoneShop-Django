@@ -1,9 +1,41 @@
 {% extends 'index.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}Order{% endblock title %}
 
 {% block content %}
 
+<form action="" method="POST">
+	{% csrf_token %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">
+				{{ order_form.first_name|as_crispy_field }}
+			</div>
+			<div class="col-lg-4">
+				{{ order_form.last_name|as_crispy_field }}
+			</div>
+			<div class="col-lg-4">
+				{{ order_form.phone|as_crispy_field }}
+			</div>
+			<div class="col-lg-4">
+				{{ order_form.address|as_crispy_field }}
+			</div>
+			<div class="col-lg-4">
+				{{ order_form.date|as_crispy_field }}
+			</div>
+			<div class="col-lg-4">
+				{{ order_form.buying_type|as_crispy_field }}
+			</div>
+			<div class="col-lg-12">
+				{{ order_form.comment|as_crispy_field }}
+			</div>
+			<div class="col-lg-12">
+				<button style="width: 100%;" type="submit" class="btn btn-success">Make order</button>
+			</div>
+		</div>
+	</div>
+</form>
 
 {% endblock content %}

@@ -36,7 +36,13 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'cart_view' %}">
               <i class="fa fa-shopping-cart icons" aria-hidden="true"></i> Cart
-              <span class="badge badge-secondary" id="cart-count">{{ cart.products.count }}</span>
+              <span class="badge badge-secondary" id="cart-count">{{ request.session.total }}</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'cart_view' %}">
+              <i class="fa fa-shopping-cart icons" aria-hidden="true"></i> Orders
+              <span class="badge badge-secondary" id="cart-count">{{ request.session.total }}</span>
             </a>
           </li>
           {% else %}

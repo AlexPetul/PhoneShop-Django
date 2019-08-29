@@ -1,12 +1,14 @@
 from django.shortcuts import render, reverse
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.contrib.auth import login, authenticate
+from phones_app.forms import OrderForm
 from django.contrib.auth.forms import UserCreationForm
 from phones_app.models import (
     Product,
     Category,
     Cart,
-    CartItem
+    CartItem,
+    Order
 )
 
 
@@ -15,6 +17,7 @@ def get_users_cart(request):
         cart_id = request.session['cart_id']
         cart = Cart.objects.get(id=cart_id)
         request.session['total'] = cart.products.count()
+        # total_orders
     except:
         cart = Cart()
         cart.save()
@@ -27,7 +30,7 @@ def get_users_cart(request):
 def base_view(request):
     cart = get_users_cart(request)
     products = Product.objects.order_by('-time_added')[:3]
-    categories = Category.orbjects.all()
+    categories = Category.objects.all()
     context = {
         'products': products,
         'categories': categories,
@@ -139,4 +142,29 @@ def checkout_view(request):
 
 
 def make_order_view(request):
-    return render(request, 'order.html')
+    cart = get_users_cart(request)
+    order_form = OrderForm(request.POST or None)
+    if order_form.is_valid():
+        first_name = order_form.cleaned_data.get('first_name')
+        last_name = order_form.cleaned_data.get('last_name')
+        phone = order_form.cleaned_data.get('phone')
+        address = order_form.cleaned_data.get('address')
+        buying_type = order_form.cleaned_data.get('buying_type')
+        comment = order_form.cleaned_data.get('comment')
+        new_order = Order()
+        new_order.user = request.user
+        new_order.first_name = first_name
+        new_order.last_name = last_name
+        new_order.phone = phone
+        new_order.address = address
+        new_order.buying_type = buying_type
+        new_order.comment = comment
+        new_order.total = cart.products.count()
+        del request.session['cart_id']
+        del request.session['total']
+        return HttpResponseRedirect(reverse('base_view'))
+
+    context = {
+        'order_form': order_form
+    }
+    return render(request, 'order.html', context)
