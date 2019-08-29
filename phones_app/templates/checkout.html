@@ -22,10 +22,10 @@
 		{% endfor %}
 		<div class="col-lg-4">
 			<span>Total price: </span>
-			<span id="cart-total-price">{{ cart.total_price }}</span>
+			<span id="cart-total-price">{{ cart.total_price }}</span> $
 		</div>
 		<div class="col-lg-12">
-			<a href="#"><button class="btn btn-success">Order</button></a>
+			<a href="{% url 'make_order_view' %}"><button class="btn btn-success">Order</button></a>
 		</div>
 	</div>
 </div>

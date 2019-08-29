@@ -136,3 +136,7 @@ def checkout_view(request):
         'products': products
     }
     return render(request, 'checkout.html', context)
+
+
+def make_order_view(request):
+    return render(request, 'order.html')

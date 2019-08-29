@@ -84,6 +84,7 @@ class Order(models.Model):
         ('At home', 'At home')
     )
     buying_type = models.CharField(max_length=12, choices=BUYING_TYPES)
+    date = models.DateField(auto_now_add=True)
     comment = models.TextField(max_length=200)
 
     def __str__(self):
