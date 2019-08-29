@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Checkout{% endblock title %}
+
+{% block content %}
+<div class="container">
+	<div class="row cart-body">
+		<div class="col-lg-4"><p align="center" class="cart-header">Name</p></div>
+		<div class="col-lg-4"><p align="center" class="cart-header">Count</p></div>
+		<div class="col-lg-4"><p align="center" class="cart-header">Price</p></div>
+		{% for product in products %}
+		<div class="col-lg-4 cart-item-{{product.id}}">
+			<p align="center">{{ product.product.title }}</p>
+		</div>
+		<div class="col-lg-4 cart-item-{{product.id}}">
+			<p align="center" class="product-count">{{ product.count }}</p>
+		</div>
+		<div class="col-lg-4 cart-item-{{product.id}}">
+			<p align="center" class="product-total-price">{{ product.total_price }}</p>
+		</div>
+		{% endfor %}
+		<div class="col-lg-4">
+			<span>Total price: </span>
+			<span id="cart-total-price">{{ cart.total_price }}</span>
+		</div>
+		<div class="col-lg-12">
+			<a href="#"><button class="btn btn-success">Order</button></a>
+		</div>
+	</div>
+</div>
+{% endblock content %}

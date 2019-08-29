@@ -12,6 +12,7 @@ from phones_app.views import (
     remove_from_cart_view,
     increase_product_count_view,
     decrease_product_count_view,
+    checkout_view,
 )
 
 urlpatterns = [
@@ -24,6 +25,7 @@ urlpatterns = [
     re_path(r'^remove_qty_from_product/$', decrease_product_count_view, name='decrease_product_count_view'),
     re_path(r'^remove_from_cart/$', remove_from_cart_view, name='remove_from_cart_view'),
     re_path(r'^cart/$', cart_view, name='cart_view'),
+    re_path(r'^checkout/$', checkout_view, name='checkout_view'),
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

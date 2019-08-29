@@ -27,7 +27,7 @@ def get_users_cart(request):
 def base_view(request):
     cart = get_users_cart(request)
     products = Product.objects.order_by('-time_added')[:3]
-    categories = Category.objects.all()
+    categories = Category.orbjects.all()
     context = {
         'products': products,
         'categories': categories,
@@ -126,3 +126,13 @@ def remove_from_cart_view(request):
         'total': cart.products.count(),
         'total_cart_price': cart.total_price
     })
+
+
+def checkout_view(request):
+    cart = get_users_cart(request)
+    products = cart.products.all()
+    context = {
+        'cart': cart,
+        'products': products
+    }
+    return render(request, 'checkout.html', context)

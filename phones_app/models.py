@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.template.defaultfilters import slugify
+from django.conf import settings
 from django.db.models.signals import pre_save
 
 
@@ -67,6 +68,26 @@ class Cart(models.Model):
                 cart_item.delete()
                 cart.total_price -= cart_item.total_price
                 cart.save()
+
+
+class Order(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+    users_cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=25)
+    total = models.DecimalField(max_digits=12, decimal_places=2)
+    last_name = models.CharField(max_length=25)
+    address = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
+    BUYING_TYPES = (
+        ('Picking up', 'Picking up'),
+        ('At home', 'At home')
+    )
+    buying_type = models.CharField(max_length=12, choices=BUYING_TYPES)
+    comment = models.TextField(max_length=200)
+
+    def __str__(self):
+        return 'Order {}'.format(self.id)
 
 
 def pre_save_product_slug(sender, instance, *args, **kwargs):

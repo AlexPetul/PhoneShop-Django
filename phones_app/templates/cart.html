@@ -36,6 +36,9 @@
 			<span>Total price: </span>
 			<span id="cart-total-price">{{ cart.total_price }}</span>
 		</div>
+		<div class="col-lg-12">
+			<a href="{% url 'checkout_view' %}"><button class="btn btn-success">Pre order</button></a>
+		</div>
 	</div>
 </div>
 {% else %}
