@@ -20,11 +20,11 @@
 			<p align="center" class="product-total-price">{{ product.total_price }}</p>
 		</div>
 		{% endfor %}
-		<div class="col-lg-4">
+		<div class="col-lg-12 price-separator" align="right">
 			<span>Total price: </span>
 			<span id="cart-total-price">{{ cart.total_price }}</span> $
 		</div>
-		<div class="col-lg-12">
+		<div class="col-lg-12" align="right" id="order-btn">
 			<a href="{% url 'make_order_view' %}"><button class="btn btn-success">Order</button></a>
 		</div>
 	</div>

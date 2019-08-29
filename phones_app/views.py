@@ -85,6 +85,7 @@ def cart_view(request):
 def add_to_cart_view(request):
     cart = get_users_cart(request)
     product_slug = request.GET.get('product_slug')
+    print(product_slug)
     product = Product.objects.get(slug=product_slug)
     cart.add_to_cart(product)
     return JsonResponse({'total': cart.products.count()})

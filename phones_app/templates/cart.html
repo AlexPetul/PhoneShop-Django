@@ -15,7 +15,7 @@
 		<div class="col-lg-4 cart-item-{{product.id}}">
 			<p align="center">{{ product.product.title }}</p>
 		</div>
-		<div class="col-lg-4 cart-item-{{product.id}}">
+		<div class="col-lg-4 cart-item-{{product.id}} item-count">
 			<span class="product-count">{{ product.count }}</span>
 			<a href="#" class="add-qty" data-item-id="{{ product.id }}" data-count="{{ product.count }}">
 				<span><i class="fa fa-plus" aria-hidden="true"></i></span>
@@ -32,85 +32,19 @@
 			<a href="{% url 'remove_from_cart_view' %}" class="remove-from-cart" data-item-id="{{ product.id }}" data-slug="{{product.product.slug}}" data-cart="{{ cart }}" class="trash"><i class="fa fa-trash" aria-hidden="true"></i></a>
 		</div>
 		{% endfor %}
-		<div class="col-lg-4">
+		<div class="col-lg-12 price-separator" align="right">
 			<span>Total price: </span>
-			<span onchange="getTotal();" id="cart-total-price">{{ cart.total_price }}</span>
+			<span id="cart-total-price"><b>{{ cart.total_price }}</b></span> $
 		</div>
-		<div class="col-lg-12">
+		<div class="col-lg-12" align="right" id="pre-order">
 			<a href="{% url 'checkout_view' %}"><button class="btn btn-success">Pre order</button></a>
 		</div>
 	</div>
+
 </div>
 {% else %}
 <h2 align="center">The cart is empty.</h2>
 {% endif %}
 <h2 align="center" id="empty-cart"></h2>
 
-<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('#empty-cart').css('display', 'none');
-
-		$('.remove-from-cart').on('click', function(e){
-			e.preventDefault();
-			product_slug = $(this).attr('data-slug');
-			item_id = $(this).attr('data-item-id');
-			data = {
-				product_slug: product_slug
-			}
-			$.ajax({
-				type: "GET",
-				url: "{% url 'remove_from_cart_view' %}",
-				data: data,
-				success: function(data){
-					$('#cart-count').html(data.total);
-					$('.cart-item-'+item_id).css('display', 'none');
-					$('#cart-total-price').html(data.total_cart_price);
-					if (parseInt(data.total, 10) == 0){
-						$('.cart-wrapper').css('display', 'none');
-						$('#empty-cart').css('display', 'block');
-						$('#empty-cart').html('The cart is empty.');
-					}
-				}
-			});
-		});
-
-		$('.add-qty').on('click', function(e){
-			e.preventDefault();
-			item_id = $(this).attr('data-item-id');
-			data = {
-				item_id: item_id
-			}
-			$.ajax({
-				type: "GET",
-				url: "{% url 'increase_product_count_view' %}",
-				data: data,
-				success: function(data){
-					$('.cart-item-' + item_id + ' > .product-count').html(data.count);
-					$('.cart-item-' + item_id + ' > .product-total-price').html(data.product_total_price);
-					$('#cart-total-price').html(data.total_cart_price);
-				}
-			});
-		});
-
-		$('.remove-qty').on('click', function(e){
-			e.preventDefault();
-			item_id = $(this).attr('data-item-id');
-			data = {
-				item_id: item_id
-			}
-			$.ajax({
-				type: "GET",
-				url: "{% url 'decrease_product_count_view' %}",
-				data: data,
-				success: function(data){
-					$('.cart-item-' + item_id + ' > .product-count').html(data.count);
-					$('.cart-item-' + item_id + ' > .product-total-price').html(data.product_total_price);
-					$('#cart-total-price').html(data.total_cart_price);
-				}
-			});
-		});
-
-	});
-</script>
 {% endblock content %}

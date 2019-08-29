@@ -4,8 +4,8 @@
 {% block title %}{{ category.name }}{% endblock title %}
 
 {% block content %}
-
-<div class="container">
+<h1 align="center" id="category-header">{{ category.name }}</h1>
+<div class="container category-wrapper">
 	<div class="row">
 		{% for product in products %}
 		<div class="col-lg-4 col-md-6 mb-4">
@@ -18,7 +18,7 @@
 					<h5>${{ product.price }}</h5>
 					<p class="card-text">{{ product.description }}</p>
 					<a href="{% url 'add_to_cart_view' %}" class='add-to-cart' data-slug='{{ product.slug }}'>
-						<button class="btn btn-success"><i class="fa fa-shopping-cart icons" aria-hidden="true"></i> Add</button>
+						<button class="btn btn-success button-add"><i class="fa fa-shopping-cart icons" aria-hidden="true"></i> Add</button>
 					</a>
 				</div>
 			</div>

@@ -105,19 +105,20 @@
           </a>
         </div>
 
+
         <div class="row">
           {% for product in products %}
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="{{ product.image.url }}" alt=""></a>
+              <a href="{{ product.get_absolute_url }}"><img class="card-img-top" src="{{ product.image.url }}"></a>
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
                 </h4>
-                <h5>${{ product.price }}</h5>
+                <h5>$ {{ product.price }}</h5>
                 <p class="card-text">{{ product.description }}</p>
                 <a href="{% url 'add_to_cart_view' %}" class='add-to-cart' data-slug='{{ product.slug }}'>
-                  <button class="btn btn-success">
+                  <button class="btn btn-success button-add">
                     <i class="fa fa-shopping-cart icons" aria-hidden="true"></i> Add
                   </button>
                 </a>
@@ -145,31 +146,16 @@
       <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
     </div>
   </footer> -->
-
-  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  {% block scripts %}
   <script type="text/javascript">
-    $(document).ready(function(){
-
-      $('.add-to-cart').on('click', function(e){
-        e.preventDefault();
-        product_slug = $(this).attr('data-slug');
-        data = {
-          product_slug: product_slug
-        }
-        $.ajax({
-          type: "GET",
-          url: "{% url 'add_to_cart_view' %}",
-          data: data,
-          success: function(data){
-            $('#cart-count').html(data.total)
-          }
-        });
-      });
-
-      
-      
-    });
+    var url_add_to_cart = "{% url 'add_to_cart_view' %}";
+    var url_remove_from_cart = "{% url 'remove_from_cart_view' %}";
+    var url_increase_qty = "{% url 'increase_product_count_view' %}";
+    var url_decrease_qty = "{% url 'decrease_product_count_view' %}";
   </script>
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'js/utils.js' %}" type="text/javascript"></script>
+  {% endblock scripts %}
 
 </body>
 
