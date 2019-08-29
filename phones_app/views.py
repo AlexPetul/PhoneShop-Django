@@ -8,7 +8,8 @@ from phones_app.models import (
     Category,
     Cart,
     CartItem,
-    Order
+    Order,
+    ShopUser
 )
 
 
@@ -17,7 +18,6 @@ def get_users_cart(request):
         cart_id = request.session['cart_id']
         cart = Cart.objects.get(id=cart_id)
         request.session['total'] = cart.products.count()
-        # total_orders
     except:
         cart = Cart()
         cart.save()
@@ -43,6 +43,9 @@ def sign_up_view(request):
     login_form = UserCreationForm(request.POST or None)
     if login_form.is_valid():
         user = login_form.save()
+        shop_user = ShopUser()
+        shop_user.user = user
+        shop_user.save()
         login(request, user)
         return HttpResponseRedirect(reverse('base_view'))
     context = {

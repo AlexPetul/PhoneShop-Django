@@ -6,7 +6,7 @@
 {% block content %}
 
 {% if products.count %}
-<div class="container">
+<div class="container cart-wrapper">
 	<div class="row cart-body">
 		<div class="col-lg-4"><p align="center" class="cart-header">Name</p></div>
 		<div class="col-lg-4"><p align="center" class="cart-header">Count</p></div>
@@ -29,12 +29,12 @@
 			<span>$</span>
 		</div>
 		<div class="col-lg-1 cart-item-{{product.id}}">
-			<a href="{% url 'remove_from_cart_view' %}" class="remove-from-cart" data-item-id="{{ product.id }}" data-slug="{{product.product.slug}}" class="trash"><i class="fa fa-trash" aria-hidden="true"></i></a>
+			<a href="{% url 'remove_from_cart_view' %}" class="remove-from-cart" data-item-id="{{ product.id }}" data-slug="{{product.product.slug}}" data-cart="{{ cart }}" class="trash"><i class="fa fa-trash" aria-hidden="true"></i></a>
 		</div>
 		{% endfor %}
 		<div class="col-lg-4">
 			<span>Total price: </span>
-			<span id="cart-total-price">{{ cart.total_price }}</span>
+			<span onchange="getTotal();" id="cart-total-price">{{ cart.total_price }}</span>
 		</div>
 		<div class="col-lg-12">
 			<a href="{% url 'checkout_view' %}"><button class="btn btn-success">Pre order</button></a>
@@ -44,10 +44,12 @@
 {% else %}
 <h2 align="center">The cart is empty.</h2>
 {% endif %}
+<h2 align="center" id="empty-cart"></h2>
 
 <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		$('#empty-cart').css('display', 'none');
 
 		$('.remove-from-cart').on('click', function(e){
 			e.preventDefault();
@@ -64,6 +66,11 @@
 					$('#cart-count').html(data.total);
 					$('.cart-item-'+item_id).css('display', 'none');
 					$('#cart-total-price').html(data.total_cart_price);
+					if (parseInt(data.total, 10) == 0){
+						$('.cart-wrapper').css('display', 'none');
+						$('#empty-cart').css('display', 'block');
+						$('#empty-cart').html('The cart is empty.');
+					}
 				}
 			});
 		});

@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.template.defaultfilters import slugify
 from django.conf import settings
 from django.db.models.signals import pre_save
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -89,6 +90,11 @@ class Order(models.Model):
 
     def __str__(self):
         return 'Order {}'.format(self.id)
+
+
+class ShopUser(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    orders = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
 
 
 def pre_save_product_slug(sender, instance, *args, **kwargs):
