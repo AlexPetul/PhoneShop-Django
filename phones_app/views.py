@@ -82,6 +82,7 @@ def detailed_product_view(request, product_slug):
     return render(request, 'detailed_product.html', context)
 
 
+@login_required(redirect_field_name='')
 def account_view(request, username):
     user_orders = Order.objects.filter(user=request.user)
     context = {

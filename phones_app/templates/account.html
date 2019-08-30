@@ -6,6 +6,7 @@
 {% block content %}
 
 <h1 align="center" id="users-header">Profile of user {{ request.user.username }}</h1>
+{% if orders %}
 <div class="container">
 	<div class="row">
 		<table class="table">
@@ -16,21 +17,46 @@
 					<th scope="col">Phone</th>
 					<th scope="col">Buying type</th>
 					<th scope="col">Total price</th>
+					<th scope="col">Comments</th>
+					<th scope="col">Details</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for order in orders %}
 				<tr align="center">
 					<th scope="row">{{ order.id }}</th>
-					<th scope="row">{{ order.address }}</th>
+					<th scope="row">
+						{% if order.address %}
+						{{ order.address }}
+						{% else %}
+						-
+						{% endif %}
+					</th>
 					<th scope="row">{{ order.phone }}</th>
 					<th scope="row">{{ order.buying_type }}</th>
 					<th scope="row">{{ order.users_cart.total_price }} $</th>
+					<th scope="row">
+						{% if order.comment %}
+						{{ order.comment }}
+						{% else %}
+						-
+						{% endif %}
+					</th>
+					<th scope="row">
+						<a>
+							<button class="btn btn-info">Order details</button>
+						</a>
+					</th>
 				</tr>
 				{% endfor %}
 			</tbody>
 		</table>
 	</div>
 </div>
+{% else %}
+<div align="center">
+	<img src="{% static 'img/no-list.png' %}">
+</div>
+{% endif %}
 
 {% endblock content %}

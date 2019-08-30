@@ -72,6 +72,17 @@ class Cart(models.Model):
 
 
 class Order(models.Model):
+
+    BUYING_TYPES = (
+        ('Picking up', 'Picking up'),
+        ('At home', 'At home')
+    )
+
+    STATUS_TYPES = (
+        ('Payed', 'Payed'),
+        ('Not Payed', 'Not Payed')
+    )
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     users_cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
@@ -80,13 +91,11 @@ class Order(models.Model):
     last_name = models.CharField(max_length=25, blank=True)
     address = models.CharField(max_length=100, blank=True)
     phone = models.CharField(max_length=15)
-    BUYING_TYPES = (
-        ('Picking up', 'Picking up'),
-        ('At home', 'At home')
-    )
     buying_type = models.CharField(max_length=12, choices=BUYING_TYPES)
     date = models.DateField(auto_now_add=True)
     comment = models.TextField(max_length=200, blank=True)
+    status = models.CharField(max_length=12, choices=STATUS_TYPES, default='Not Payed')
+    
 
     def __str__(self):
         return 'Order {}'.format(self.id)

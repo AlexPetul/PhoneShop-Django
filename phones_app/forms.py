@@ -41,13 +41,11 @@ class ShopUserCreationForm(UserCreationForm):
 		super(ShopUserCreationForm, self).__init__(*args, **kwargs)
 
 
-	# def clean_password2(self):
-	# 	cleaned_data = super(ShopUserCreationForm, self).clean()
-	# 	password1 = cleaned_data.get('password1')
-	# 	password2 = cleaned_data.get('password2')
-	# 	if password1 and password2 and password1 != password2:
-	# 		raise forms.ValidationError('Passwords dont match.')
-	# 	return cleaned_data
+	def clean_password2(self):
+		password1 = self.cleaned_data.get('password1')
+		password2 = self.cleaned_data.get('password2')
+		if password1 and password2 and password1 != password2:
+			raise forms.ValidationError('Passwords dont match.')
 
 
 	def clean(self):
