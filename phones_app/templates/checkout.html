@@ -25,6 +25,7 @@
 			<span id="cart-total-price">{{ cart.total_price }}</span> $
 		</div>
 		<div class="col-lg-12" align="right" id="order-btn">
+			<a href="{% url 'cart_view' %}"><button class="btn btn-success">Back to cart</button></a>
 			<a href="{% url 'make_order_view' %}"><button class="btn btn-success">Order</button></a>
 		</div>
 	</div>

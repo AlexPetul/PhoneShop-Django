@@ -30,11 +30,14 @@ def get_users_cart(request):
 def base_view(request):
     cart = get_users_cart(request)
     products = Product.objects.order_by('-time_added')[:3]
+    carousel_products = Product.objects.order_by('time_added')[:3]
+    print(carousel_products)
     categories = Category.objects.all()
     context = {
         'products': products,
         'categories': categories,
-        'cart': cart
+        'cart': cart,
+        'carousel_products': carousel_products
     }
     return render(request, 'index.html', context)
 
