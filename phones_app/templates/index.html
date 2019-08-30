@@ -40,9 +40,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'cart_view' %}">
-              <i class="fa fa-shopping-cart icons" aria-hidden="true"></i> Orders
-              <span class="badge badge-secondary">{{ request.session.total }}</span>
+            <a class="nav-link" href="{% url 'account_view' request.user.username %}">
+              <i class="fa fa-user icons" aria-hidden="true"></i> {{ request.user.username }}
             </a>
           </li>
           <li class="nav-item">

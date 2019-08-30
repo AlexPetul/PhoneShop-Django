@@ -31,7 +31,6 @@ def base_view(request):
     cart = get_users_cart(request)
     products = Product.objects.order_by('-time_added')[:3]
     carousel_products = Product.objects.order_by('time_added')[:3]
-    print(carousel_products)
     categories = Category.objects.all()
     context = {
         'products': products,
@@ -43,13 +42,13 @@ def base_view(request):
 
 
 def sign_up_view(request):
-    login_form = ShopUserCreationForm(request.POST or None)
-    if login_form.is_valid():
-        user = login_form.save()
+    registration_form = ShopUserCreationForm(request.POST or None)
+    if registration_form.is_valid():
+        user = registration_form.save()
         login(request, user)
         return HttpResponseRedirect(reverse('base_view'))
     context = {
-        'login_form': login_form
+        'login_form': registration_form
     }
     return render(request, 'registration.html', context)
 
@@ -83,6 +82,14 @@ def detailed_product_view(request, product_slug):
     return render(request, 'detailed_product.html', context)
 
 
+def account_view(request, username):
+    user_orders = Order.objects.filter(user=request.user)
+    context = {
+        'orders': user_orders
+    }
+    return render(request, 'account.html', context)
+
+
 def detailed_category_view(request, category_slug):
     category = Category.objects.get(slug=category_slug)
     products_of_category = category.product_set.all()
@@ -107,7 +114,6 @@ def cart_view(request):
 def add_to_cart_view(request):
     cart = get_users_cart(request)
     product_slug = request.GET.get('product_slug')
-    print(product_slug)
     product = Product.objects.get(slug=product_slug)
     cart.add_to_cart(product)
     return JsonResponse({'total': cart.products.count()})
@@ -179,6 +185,7 @@ def make_order_view(request):
         comment = order_form.cleaned_data.get('comment')
         new_order = Order()
         new_order.user = request.user
+        new_order.users_cart = cart
         new_order.first_name = first_name
         new_order.last_name = last_name
         new_order.phone = phone
@@ -186,6 +193,7 @@ def make_order_view(request):
         new_order.buying_type = buying_type
         new_order.comment = comment
         new_order.total = cart.products.count()
+        new_order.save()
         del request.session['cart_id']
         del request.session['total']
         return HttpResponseRedirect(reverse('base_view'))

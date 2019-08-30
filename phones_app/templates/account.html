@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Account{% endblock title %}
+
+{% block content %}
+
+<h1 align="center" id="users-header">Profile of user {{ request.user.username }}</h1>
+<div class="container">
+	<div class="row">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr align="center">
+					<th scope="col">#</th>
+					<th scope="col">Address</th>
+					<th scope="col">Phone</th>
+					<th scope="col">Buying type</th>
+					<th scope="col">Total price</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for order in orders %}
+				<tr align="center">
+					<th scope="row">{{ order.id }}</th>
+					<th scope="row">{{ order.address }}</th>
+					<th scope="row">{{ order.phone }}</th>
+					<th scope="row">{{ order.buying_type }}</th>
+					<th scope="row">{{ order.users_cart.total_price }} $</th>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+{% endblock content %}
