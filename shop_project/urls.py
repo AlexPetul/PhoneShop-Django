@@ -13,12 +13,16 @@ from phones_app.views import (
     increase_product_count_view,
     decrease_product_count_view,
     checkout_view,
-    make_order_view
+    make_order_view,
+    logout_view,
+    sign_in_view
 )
 
 urlpatterns = [
     re_path(r'^$', base_view, name='base_view'),
     re_path(r'^signup/$', sign_up_view, name='sign_up_view'),
+    re_path(r'^signin/$', sign_in_view, name='sign_in_view'),
+    re_path(r'^logout/$', logout_view, name='logout_view'),
     re_path(r'^phone/(?P<product_slug>[-\w]+)/$', detailed_product_view, name='detailed_product_view'),
     re_path(r'^category/(?P<category_slug>[-\w]+)/$', detailed_category_view, name='detailed_category_view'),
     re_path(r'^add_to_cart/$', add_to_cart_view, name='add_to_cart_view'),

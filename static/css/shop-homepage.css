@@ -118,3 +118,14 @@ body {
 .empty-cart-check {
 	margin-top: 10vh;
 }
+
+.auth-form{
+	margin-top: 10vh;
+}
+
+.auth-form > div > div > div:first-child{
+	padding: 50px;
+	box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.75);
+	-webkit-box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.75);
+}

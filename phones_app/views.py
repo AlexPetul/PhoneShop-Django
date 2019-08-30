@@ -1,8 +1,8 @@
 from django.shortcuts import render, reverse
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
-from django.contrib.auth import login, authenticate
-from phones_app.forms import OrderForm
-from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponseRedirect, JsonResponse
+from django.contrib.auth import login, authenticate, logout
+from phones_app.forms import OrderForm, UserLoginForm, ShopUserCreationForm
+from django.contrib.auth.decorators import login_required
 from phones_app.models import (
     Product,
     Category,
@@ -43,18 +43,36 @@ def base_view(request):
 
 
 def sign_up_view(request):
-    login_form = UserCreationForm(request.POST or None)
+    login_form = ShopUserCreationForm(request.POST or None)
     if login_form.is_valid():
         user = login_form.save()
-        shop_user = ShopUser()
-        shop_user.user = user
-        shop_user.save()
         login(request, user)
         return HttpResponseRedirect(reverse('base_view'))
     context = {
         'login_form': login_form
     }
     return render(request, 'registration.html', context)
+
+
+def sign_in_view(request):
+    login_form = UserLoginForm(request.POST or None)
+    if login_form.is_valid():
+        username = login_form.cleaned_data.get('username')
+        password = login_form.cleaned_data.get('password')
+        login_user = authenticate(username=username, password=password)
+        if login_user:
+            login(request, login_user)
+            return HttpResponseRedirect(reverse('base_view'))
+
+    context = {
+        'login_form': login_form
+    }
+    return render(request, 'login.html', context)
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse(base_view))
 
 
 def detailed_product_view(request, product_slug):
@@ -75,6 +93,7 @@ def detailed_category_view(request, category_slug):
     return render(request, 'detailed_category.html', context)
 
 
+@login_required(redirect_field_name='')
 def cart_view(request):
     cart = get_users_cart(request)
     cart_products = cart.products.all()

@@ -1,16 +1,21 @@
 {% extends 'index.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
 
+{% block title %}Login{% endblock title %}
+
 {% block content %}
-<form action="" method="POST" class="auth-form">
-	{% csrf_token %}
+
+<form method="POST" action="" class="auth-form">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6 offset-lg-3">
+				{% csrf_token %}
 				{{ login_form|crispy }}
-				<button class="btn btn-success signin-btn">Sign up</button>
+				<button class="btn btn-success" type="submit">Sign in</button>
 			</div>
 		</div>
 	</div>
 </form>
+
 {% endblock content %}
