@@ -5,7 +5,7 @@
 
 {% block content %}
 
-{% if products.count %}
+{% if products.count %}s
 <div class="container cart-wrapper">
 	<div class="row cart-body">
 		<div class="col-lg-4"><p align="center" class="cart-header">Name</p></div>
@@ -43,8 +43,13 @@
 
 </div>
 {% else %}
-<h2 align="center">The cart is empty.</h2>
+<div align="center" id="empty-cart-body">
+	<img src="{% static 'img/empty-cart.png' %}">
+	<p>Visit our <a href="{% url 'base_view' %}">shop</a> and add some items in your cart :)</p>
+</div>
 {% endif %}
-<h2 align="center" id="empty-cart"></h2>
-
+<div align="center" class="empty-cart-inv">
+	<img src="{% static 'img/empty-cart.png' %}">
+	<p>Visit our <a href="{% url 'base_view' %}">shop</a> and add some items in your cart :)</p>
+</div>
 {% endblock content %}

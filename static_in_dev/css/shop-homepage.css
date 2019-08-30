@@ -108,3 +108,13 @@ body {
 .carousel-control-prev {
 	filter: invert(100%);
 }
+
+#order-form{
+	margin-top: 50px;
+}
+
+#empty-cart-body,
+.empty-cart-inv,
+.empty-cart-check {
+	margin-top: 10vh;
+}

@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-  $('#empty-cart').css('display', 'none');
+  $('.empty-cart-inv').css('display', 'none');
 
   $('.add-to-cart').on('click', function(e){
     e.preventDefault();
@@ -35,8 +35,7 @@ $(document).ready(function(){
         $('#cart-total-price > b').html(data.total_cart_price);
         if (parseInt(data.total, 10) == 0){
           $('.cart-wrapper').css('display', 'none');
-          $('#empty-cart').css('display', 'block');
-          $('#empty-cart').html('The cart is empty.');
+          $('.empty-cart-inv').css('display', 'block');
         }
       }
     });

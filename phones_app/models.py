@@ -77,8 +77,8 @@ class Order(models.Model):
     users_cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=25)
     total = models.DecimalField(max_digits=12, decimal_places=2)
-    last_name = models.CharField(max_length=25)
-    address = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=25, blank=True)
+    address = models.CharField(max_length=100, blank=True)
     phone = models.CharField(max_length=15)
     BUYING_TYPES = (
         ('Picking up', 'Picking up'),
@@ -86,7 +86,7 @@ class Order(models.Model):
     )
     buying_type = models.CharField(max_length=12, choices=BUYING_TYPES)
     date = models.DateField(auto_now_add=True)
-    comment = models.TextField(max_length=200)
+    comment = models.TextField(max_length=200, blank=True)
 
     def __str__(self):
         return 'Order {}'.format(self.id)

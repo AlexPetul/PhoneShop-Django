@@ -4,6 +4,7 @@
 {% block title %}Checkout{% endblock title %}
 
 {% block content %}
+{% if products %}
 <div class="container">
 	<div class="row cart-body">
 		<div class="col-lg-4"><p align="center" class="cart-header">Name</p></div>
@@ -30,4 +31,10 @@
 		</div>
 	</div>
 </div>
+{% else %}
+<div align="center" class="empty-cart-check">
+	<img src="{% static 'img/empty-cart.png' %}">
+	<p>Visit our <a href="{% url 'base_view' %}">shop</a> and add some items in your cart :)</p>
+</div>
+{% endif %}
 {% endblock content %}
