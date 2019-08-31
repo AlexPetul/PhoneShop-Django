@@ -43,9 +43,7 @@
 						{% endif %}
 					</th>
 					<th scope="row">
-						<a>
-							<button class="btn btn-info">Order details</button>
-						</a>
+						<button class="btn btn-info" data-toggle="modal" data-target="#myModal-{{ order.id }}">Order details</button>	
 					</th>
 				</tr>
 				{% endfor %}
@@ -58,5 +56,55 @@
 	<img src="{% static 'img/no-list.png' %}">
 </div>
 {% endif %}
+
+<!-- Modal -->
+{% for order in orders %}
+<div class="modal fade" id="myModal-{{ order.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Order №{{ order.id }}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<table class="table order-table">
+					<h3>Items</h3>
+					<tbody>
+						{% for item in order.users_cart.products.all %}
+						<tr align="left">
+							<th>{{ item.product.title }}</th>
+							<th>{{ item.count }} qt.</th>
+							<th>{{ item.total_price }} $</th>
+						</tr>
+						{% endfor %}
+						<tr>
+							<th></th>
+							<th>Total</th>
+							<th><b>{{ order.users_cart.total_price }} $</b></th>
+						</tr>
+					</tbody>
+				</table>
+				<h3>Customer</h3>
+				<p class="customer-info">
+					<p>First name: {{ order.first_name }}</p>
+					{% if order.last_name %}
+					<p>Last name: {{ order.last_name }}</p>
+					{% endif %}
+					<p>Phone number: {{ order.phone }}</p>
+					<p>Buying type: {{ order.buying_type }}</p>
+					{% if order.comment %}
+					<p>Comments: {{ order.comment }}</p>
+					{% endif %}
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+{% endfor %}
 
 {% endblock content %}

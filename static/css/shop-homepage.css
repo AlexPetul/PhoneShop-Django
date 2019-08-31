@@ -133,3 +133,7 @@ body {
 #users-header{
 	margin: 40px 0 40px 0;
 }
+
+.customer-info p{
+	line-height: 0px;
+}
