@@ -112,6 +112,7 @@ def cart_view(request):
     return render(request, 'cart.html', context)
 
 
+@login_required(redirect_field_name='')
 def add_to_cart_view(request):
     cart = get_users_cart(request)
     product_slug = request.GET.get('product_slug')
@@ -120,6 +121,7 @@ def add_to_cart_view(request):
     return JsonResponse({'total': cart.products.count()})
 
 
+@login_required(redirect_field_name='')
 def increase_product_count_view(request):
     cart = get_users_cart(request)
     cart_item_id = request.GET.get('item_id')
@@ -136,6 +138,7 @@ def increase_product_count_view(request):
     })
 
 
+@login_required(redirect_field_name='')
 def decrease_product_count_view(request):
     cart = get_users_cart(request)
     cart_item_id = request.GET.get('item_id')
@@ -153,6 +156,7 @@ def decrease_product_count_view(request):
         })
 
 
+@login_required(redirect_field_name='')
 def remove_from_cart_view(request):
     cart = get_users_cart(request)
     product_slug = request.GET.get('product_slug')
@@ -164,6 +168,7 @@ def remove_from_cart_view(request):
     })
 
 
+@login_required(redirect_field_name='')
 def checkout_view(request):
     cart = get_users_cart(request)
     products = cart.products.all()
@@ -174,6 +179,7 @@ def checkout_view(request):
     return render(request, 'checkout.html', context)
 
 
+@login_required(redirect_field_name='')
 def make_order_view(request):
     cart = get_users_cart(request)
     order_form = OrderForm(request.POST or None)
