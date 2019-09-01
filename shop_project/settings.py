@@ -110,8 +110,9 @@ USE_TZ = True
 
 LOGIN_URL = '/signin/'
 
-
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+FIXTURE_DIRS = ['phones_app/fixtures']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
